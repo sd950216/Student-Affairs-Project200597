@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,7 +15,14 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', 'App\Http\Controllers\PagesController@index');
-Route::get('/create_department', 'App\Http\Controllers\PagesController@create_department');
-Route::get('/create_department', 'App\Http\Controllers\PagesController@create_department');
-Route::get('/create_department', 'App\Http\Controllers\PagesController@create_department');
-Route::get('/create_department', 'App\Http\Controllers\PagesController@create_department');
+Route::get('/AddSubject', 'App\Http\Controllers\PagesController@AddSubject');
+Route::get('/AddDepartment', 'App\Http\Controllers\PagesController@AddDepartment');
+Route::get('/CreateStudentAccount', 'App\Http\Controllers\PagesController@CreateStudentAccount');
+Route::post('/storeStudentAccount', 'App\Http\Controllers\PagesController@store')->name('storeStudentAccount');
+Route::get('/CreateDoctorAccount', 'App\Http\Controllers\DoctorController@index')->name('createDoctorAccount');;
+Route::post('/storeDoctorAccount', 'App\Http\Controllers\PagesController@storeDR')->name('storeDoctorAccount');
+Route::get('/GenerateAbsence', 'App\Http\Controllers\PagesController@GenerateAbsence');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

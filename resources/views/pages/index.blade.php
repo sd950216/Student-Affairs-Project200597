@@ -1,5 +1,13 @@
 @extends("layouts.master")
 @section('content')
-<h1 style="margin-top: 10%; text-align: center;">{{$title}}</h1>
+
+
+
+    @if(session('success'))
+        <div class="alert alert-success"  style="margin-top: 10%">
+            <h1 >{{ session('success') }} </h1>
+        </div>
+    @endif
+
 @endsection
 
