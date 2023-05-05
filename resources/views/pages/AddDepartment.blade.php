@@ -20,7 +20,7 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-md-10 mx-auto">
-                <form method="POST" action="{{ route('storeDoctorAccount') }}" enctype="multipart/form-data">
+                <form method="POST" action="{{ route('storeDepartment') }}" enctype="multipart/form-data">
                     @csrf
                     <div class="form-group">
                         <label for="name">name:</label>

@@ -15,13 +15,18 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', 'App\Http\Controllers\PagesController@index');
-Route::get('/AddSubject', 'App\Http\Controllers\PagesController@AddSubject');
-Route::get('/AddDepartment', 'App\Http\Controllers\PagesController@AddDepartment');
-Route::get('/CreateStudentAccount', 'App\Http\Controllers\PagesController@CreateStudentAccount');
-Route::post('/storeStudentAccount', 'App\Http\Controllers\PagesController@store')->name('storeStudentAccount');
-Route::get('/CreateDoctorAccount', 'App\Http\Controllers\DoctorController@index')->name('createDoctorAccount');;
-Route::post('/storeDoctorAccount', 'App\Http\Controllers\PagesController@storeDR')->name('storeDoctorAccount');
+Route::get('/AddDepartment', 'App\Http\Controllers\DepartmentController@index');
+Route::post('/storeDepartment', 'App\Http\Controllers\DepartmentController@store')->name('storeDepartment');
+Route::get('/AddSubject', 'App\Http\Controllers\SubjectController@index');
+Route::post('/storeSubject', 'App\Http\Controllers\SubjectController@store')->name('storeSubject');
+Route::get('/CreateStudentAccount', 'App\Http\Controllers\StudentController@index');
+Route::post('/storeStudentAccount', 'App\Http\Controllers\StudentController@store')->name('storeStudentAccount');
+Route::get('/CreateDoctorAccount', 'App\Http\Controllers\DoctorController@index')->name('controllers.doctor.index');;
+Route::post('/storeDoctorAccount', 'App\Http\Controllers\DoctorController@store')->name('storeDoctorAccount');
 Route::get('/GenerateAbsence', 'App\Http\Controllers\PagesController@GenerateAbsence');
+
+Route::get('/info/{deparment}', 'App\Http\Controllers\AdminController@index');
+
 
 Auth::routes();
 
