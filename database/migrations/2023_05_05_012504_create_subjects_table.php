@@ -18,6 +18,7 @@ class CreateSubjectsTable extends Migration
             $table->string('name');
             $table->string('code');
             $table->string('department');
+            $table->string('departments_id');
             $table->string('prerequisites')->nullable();
             $table->timestamps();
         });

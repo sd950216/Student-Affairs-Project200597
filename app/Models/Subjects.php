@@ -12,6 +12,7 @@ class Subjects extends Model
         'name',
         'code',
         'department',
+        'departments_id',
         'prerequisites',
     ];
 

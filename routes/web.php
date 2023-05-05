@@ -23,9 +23,13 @@ Route::get('/CreateStudentAccount', 'App\Http\Controllers\StudentController@inde
 Route::post('/storeStudentAccount', 'App\Http\Controllers\StudentController@store')->name('storeStudentAccount');
 Route::get('/CreateDoctorAccount', 'App\Http\Controllers\DoctorController@index')->name('controllers.doctor.index');;
 Route::post('/storeDoctorAccount', 'App\Http\Controllers\DoctorController@store')->name('storeDoctorAccount');
-Route::get('/GenerateAbsence', 'App\Http\Controllers\PagesController@GenerateAbsence');
+Route::get('/GenerateAbsence/{subject}', 'App\Http\Controllers\AdminController@GenerateAbsence');
 
 Route::get('/info/{deparment}', 'App\Http\Controllers\AdminController@index');
+Route::get('/StudentSubject', 'App\Http\Controllers\StudentsSubjectsController@index');
+Route::post('/storeStudentSubject', 'App\Http\Controllers\StudentsSubjectsController@store')->name('storeStudentSubject');
+
+
 
 
 Auth::routes();

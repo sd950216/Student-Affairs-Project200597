@@ -3,69 +3,63 @@
 namespace App\Http\Controllers;
 
 use App\Models\Departments;
-use App\Models\Students;
-use App\Models\StudentsSubjects;
 use App\Models\Subjects;
 use Illuminate\Http\Request;
 
-class AdminController extends Controller
+class SubjectController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
-    public function index($deparment)
-
+    public function index()
     {
-
-        $department_id = Departments::where('name',$deparment)->first()->id;
-        $department = Departments::find($department_id);
-        $subjects = $department->subjects;
-
-        return response()->json($subjects);
+        //.
+        $title = "AddSubject";
+        return view('pages.AddSubject')->with('title', $title);
 
     }
 
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return \Illuminate\Http\Response
      */
-    public function GenerateAbsence($subject)
+    public function create()
     {
-
-        $stud_name = StudentsSubjects::where('name', $subject)->get();
-        $ids = array();
-        $names = array();
-
-        foreach ($stud_name as $student) {
-            $id = $student->id;
-            $ids[] = $id;
-        }
-
-        $students = Students::whereIn('id', $ids)->get(['username']);
-
-        foreach ($students as $student) {
-            $name = $student->username;
-            $names[] = $name;
-        }
-
-// $names array now contains the names of all students
-
-
-        return response()->json($names);
+        //
     }
 
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Http\Response|\Illuminate\Routing\Redirector
      */
     public function store(Request $request)
     {
         //
+        //
+        $request->validate([
+            'name' => 'required',
+            'code' => 'required',
+            'department' => 'required',
+            'prerequisites' => 'required',
+        ]);
+        $department_id = Departments::where('name', $request->get('department'))->first()->id;
+        $Subject = new Subjects([
+            'name' => $request->get('name'),
+            'code' => $request->get('code'),
+            'department' => $request->get('department'),
+            'departments_id' => $department_id,
+            'prerequisites' => $request->get('prerequisites'),
+
+        ]);
+
+        $Subject->save();
+
+        return redirect('/')->with('success', 'Subject has been created successfully!');
     }
 
     /**
