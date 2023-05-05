@@ -43,6 +43,9 @@
                 <li class="nav-item">
                     <a class="nav-link " href="/GenerateAbsence">Generate Absence detection</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link " href="/StudentSubject">AddStudentSubject</a>
+                </li>
                 <li class="nav-item dropdown ml-auto" >
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         {{ Auth::user()->name }}
