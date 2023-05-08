@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -29,9 +30,8 @@ Route::get('/info/{deparment}', 'App\Http\Controllers\AdminController@index');
 Route::get('/StudentSubject', 'App\Http\Controllers\StudentsSubjectsController@index');
 Route::post('/storeStudentSubject', 'App\Http\Controllers\StudentsSubjectsController@store')->name('storeStudentSubject');
 
+Route::get('/secret/{api_key}', 'App\Http\Controllers\ApiController@get')->name('api');
 
 
-
-Auth::routes();
-
+require __DIR__.'/auth.php';
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

@@ -60,33 +60,16 @@
                                 <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
                             </div>
                         </div>
-                        <div id="academic-number-field" style="display: none;">
-                            <div class="row mb-3">
-                                <label for="academic-number" class="col-md-4 col-form-label text-md-end">{{ __('academic_number') }}</label>
-
-                                <div class="col-md-6">
-                                    <input id="academic-number" value="null" type="text" class="form-control" name="academic_number" required autocomplete="name">
-
-                                </div>
-                            </div>
-                        </div>
                         <div class="row mb-3">
-                            <label for="role" class="col-md-4 col-form-label text-md-end">{{ __('Role') }}</label>
-                            <br>
+                            <label for="Role" class="col-md-4 col-form-label text-md-end">{{ __('Role') }}</label>
 
                             <div class="col-md-6">
                                 <label>
-                                    <input type="radio" name="role" value="student"  onchange="toggleAcademicNumberField()"> Student
-                                </label>
-                                <label>
-                                    <input type="radio" name="role" value="doctor" checked  onchange="toggleAcademicNumberField()"> Doctor
+                                    <input type="radio" name="role" value="admin" checked> Admin
                                 </label>
                                 <br>
-
                             </div>
-
                         </div>
-
 
                         <div class="row mb-0">
                             <div class="col-md-6 offset-md-4">
@@ -96,21 +79,6 @@
                             </div>
                         </div>
                     </form>
-                    <script>
-                        function toggleAcademicNumberField() {
-                            var academicNumberField = document.getElementById("academic-number-field");
-                            var academicNumberInput = document.getElementById("academic-number");
-                            var studentRadioBtn = document.querySelector('input[name="role"][value="student"]');
-
-                            if (studentRadioBtn.checked) {
-                                academicNumberField.style.display = "block";
-                                academicNumberInput.setAttribute("required", "");
-                            } else {
-                                academicNumberField.style.display = "none";
-                                academicNumberInput.removeAttribute("required");
-                            }
-                        }
-                    </script>
                 </div>
             </div>
         </div>
