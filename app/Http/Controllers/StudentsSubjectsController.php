@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Departments;
 use App\Models\StudentsSubjects;
-use App\Models\Subjects;
+use App\Models\Courses;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -19,7 +19,7 @@ class StudentsSubjectsController extends Controller
     {
         //
         //
-        $subjects = Subjects::all();
+        $subjects = Courses::all();
         $title = "CreateAccount";
         return view('pages.AddStudentSubject')->with('title', $title)->with(compact('subjects'));
     }
@@ -47,8 +47,8 @@ class StudentsSubjectsController extends Controller
         ]);
 
 
-        $department = Subjects::where('name', $request->get('name'))->first()->department;
-        $department_id = Subjects::where('name', $request->get('name'))->first()->departments_id;
+        $department = Courses::where('name', $request->get('name'))->first()->department;
+        $department_id = Courses::where('name', $request->get('name'))->first()->departments_id;
 
 
         $studentsubject = new StudentsSubjects([

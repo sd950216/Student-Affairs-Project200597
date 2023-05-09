@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('Register') }}</div>
+                <div class="card-header">Create Account </div>
 
                 <div class="card-body">
                     <form method="POST" action="{{ route('register') }}">
@@ -65,7 +65,7 @@
                                 <label for="academic-number" class="col-md-4 col-form-label text-md-end">{{ __('academic_number') }}</label>
 
                                 <div class="col-md-6">
-                                    <input id="academic-number" value="null" type="text" class="form-control" name="academic_number" required autocomplete="name">
+                                    <input id="academic-number" value="null" type="text" class="form-control" name="AcademicNumber" required autocomplete="name">
 
                                 </div>
                             </div>

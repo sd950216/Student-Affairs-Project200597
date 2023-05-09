@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Students;
+use App\Models\Courses;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -22,8 +25,18 @@ class HomeController extends Controller
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\Support\Renderable|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function index()
+
     {
-        return redirect('/');
+
+//        $classCount = $this->schoolClassRepository->getAllBySession($current_school_session_id)->count();
+
+        $students = User::getStudents()->count();
+        $doctors = User::getDoctors()->count();
+        $courses = Courses::getSubjects()->count();
+
+
+//        $teacherCount = $this->userRepository->getAllTeachers()->count();
+        return view('home', ['students' => $students , 'doctors' => $doctors ,'courses' => $courses ]);
 
     }
 }

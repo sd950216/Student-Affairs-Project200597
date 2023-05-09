@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Departments;
 use App\Models\Students;
 use App\Models\StudentsSubjects;
-use App\Models\Subjects;
+use App\Models\Courses;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -55,6 +56,29 @@ class AdminController extends Controller
 
 
         return response()->json($names);
+    }
+
+
+
+    public function listDoctors()
+    {
+        $doctors = User::getDoctors();
+        return view('lists.DoctorList')->with(['doctors'=>$doctors]);
+
+    }
+    public function listStudents()
+    {
+        $students = User::getStudents();
+        return view('lists.studentList')->with(['students'=>$students]);
+//        return response()->json($students);
+
+    }
+
+    public function listCourses()
+    {
+        $Subjects = Courses::getSubjects();
+        return view('lists.CoursesList')->with(['courses'=>$Subjects]);
+
     }
 
     /**

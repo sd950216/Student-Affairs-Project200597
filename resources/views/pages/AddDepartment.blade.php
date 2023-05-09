@@ -1,4 +1,4 @@
-@extends("layouts.master")
+@extends("layouts.app")
 @section('content')
 
 
@@ -9,8 +9,8 @@
             <div class="row">
                 <div class="col-lg-8 col-md-10 mx-auto">
                     <div class="page-heading">
-                        <h1>New Post</h1>
-                        <span class="subheading">You're going to make a great blog post!</span>
+                        <h1>Add Department</h1>
+                        <span class="subheading">Enter department details below!</span>
                     </div>
                 </div>
             </div>
@@ -23,7 +23,7 @@
                 <form method="POST" action="{{ route('storeDepartment') }}" enctype="multipart/form-data">
                     @csrf
                     <div class="form-group">
-                        <label for="name">name:</label>
+                        <label for="name" style="margin-top: 5px;">name:</label>
                         <input type="text" class="form-control" name="name" />
                     </div>
                     <div class="form-group">

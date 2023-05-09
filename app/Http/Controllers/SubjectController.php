@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Departments;
-use App\Models\Subjects;
+use App\Models\Courses;
 use Illuminate\Http\Request;
 
 class SubjectController extends Controller
@@ -17,7 +17,9 @@ class SubjectController extends Controller
     {
         //.
         $title = "AddSubject";
-        return view('pages.AddSubject')->with('title', $title);
+        $departments = Departments::all();
+
+        return view('pages.AddSubject')->with('title', $title)->with('departments', $departments);
 
     }
 
@@ -40,7 +42,7 @@ class SubjectController extends Controller
     public function store(Request $request)
     {
         //
-        //
+//        //
         $request->validate([
             'name' => 'required',
             'code' => 'required',
@@ -48,7 +50,7 @@ class SubjectController extends Controller
             'prerequisites' => 'required',
         ]);
         $department_id = Departments::where('name', $request->get('department'))->first()->id;
-        $Subject = new Subjects([
+        $Subject = new Courses([
             'name' => $request->get('name'),
             'code' => $request->get('code'),
             'department' => $request->get('department'),

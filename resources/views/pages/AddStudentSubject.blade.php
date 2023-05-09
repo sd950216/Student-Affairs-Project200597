@@ -1,4 +1,4 @@
-@extends("layouts.master")
+@extends("layouts.app")
 @section('content')
 
 
@@ -23,7 +23,7 @@
                 <form method="POST" action="{{ route('storeStudentSubject') }}" enctype="multipart/form-data">
                     @csrf
                     <div class="form-group">
-                        <label for="name">Choose a subject:</label>
+                        <label for="name" style="margin-top: 5px;">Choose a subject:</label>
                         <select id="name" name="name">
                             @foreach($subjects as $subject)
 

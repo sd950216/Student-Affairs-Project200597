@@ -14,8 +14,7 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('/', 'App\Http\Controllers\PagesController@index');
+Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/AddDepartment', 'App\Http\Controllers\DepartmentController@index');
 Route::post('/storeDepartment', 'App\Http\Controllers\DepartmentController@store')->name('storeDepartment');
 Route::get('/AddSubject', 'App\Http\Controllers\SubjectController@index');
@@ -26,7 +25,10 @@ Route::get('/CreateDoctorAccount', 'App\Http\Controllers\DoctorController@index'
 Route::post('/storeDoctorAccount', 'App\Http\Controllers\DoctorController@store')->name('storeDoctorAccount');
 Route::get('/GenerateAbsence/{subject}', 'App\Http\Controllers\AdminController@GenerateAbsence');
 
-Route::get('/info/{deparment}', 'App\Http\Controllers\AdminController@index');
+Route::get('/list/students', 'App\Http\Controllers\AdminController@listStudents');
+Route::get('/list/doctors', 'App\Http\Controllers\AdminController@listDoctors');
+Route::get('/list/courses', 'App\Http\Controllers\AdminController@listCourses');
+
 Route::get('/StudentSubject', 'App\Http\Controllers\StudentsSubjectsController@index');
 Route::post('/storeStudentSubject', 'App\Http\Controllers\StudentsSubjectsController@store')->name('storeStudentSubject');
 
@@ -34,4 +36,3 @@ Route::get('/secret/{api_key}', 'App\Http\Controllers\ApiController@get')->name(
 
 
 require __DIR__.'/auth.php';
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

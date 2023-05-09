@@ -23,10 +23,13 @@
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+        <nav class="navbar navbar-expand-md navbar-dark bg-black shadow-sm">
             <div class="container">
+
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
+                    <img src="https://ui-avatars.com/api/?name=t" width="30" height="30" class="d-inline-block align-top" alt="">
+
+                    {{ config('app.name', 'TRAP') }}
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -54,6 +57,26 @@
                                 </li>
                             @endif
                         @else
+                            <li class="nav-item dropdown">
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                    Add
+                                </a>
+
+                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="/AddDepartment">Department</a>
+                                    <a class="dropdown-item" href="/AddSubject">Subject</a>
+
+                                </div>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link " href="{{ route('register') }}">Create account</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link " href="/GenerateAbsence">Generate Absence detection</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link " href="/StudentSubject">AddStudentSubject</a>
+                            </li>
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }}

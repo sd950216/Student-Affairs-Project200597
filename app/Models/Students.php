@@ -13,7 +13,7 @@ class Students extends Model
     ];
 
 
-    public function subjects()
+    public function subjects(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(StudentsSubjects::class);
     }

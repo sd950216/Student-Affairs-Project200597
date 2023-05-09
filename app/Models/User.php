@@ -22,6 +22,8 @@ class User extends Authenticatable
         'email',
         'password',
         'role',
+        'AcademicNumber',
+
     ];
 
     /**
@@ -46,4 +48,16 @@ class User extends Authenticatable
     {
         return $this->role === $role;
     }
+
+    public static function getStudents()
+    {
+        return User::where('role', 'student')->get();
+    }
+
+    public static function getDoctors()
+    {
+        return User::where('role', 'doctor')->get();
+    }
+
+
 }

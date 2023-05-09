@@ -1,4 +1,4 @@
-@extends("layouts.master")
+@extends("layouts.app")
 @section('content')
 
 
@@ -9,8 +9,8 @@
             <div class="row">
                 <div class="col-lg-8 col-md-10 mx-auto">
                     <div class="page-heading">
-                        <h1>New Post</h1>
-                        <span class="subheading">You're going to make a great blog post!</span>
+                        <h1 >Add Subject</h1>
+                        <span class="subheading" >Enter subject details below!</span>
                     </div>
                 </div>
             </div>
@@ -23,16 +23,22 @@
                 <form method="POST" action="{{ route('storeSubject') }}" enctype="multipart/form-data">
                     @csrf
                     <div class="form-group">
-                        <label for="name">name:</label>
-                        <input type="text" class="form-control" name="name" />
+                        <label for="name" style="margin-top: 5px;">name:</label>
+                        <input type="text" class="form-control"  name="name" />
                     </div>
                     <div class="form-group">
                         <label for="code">code:</label>
                         <input type="text" class="form-control" name="code" />
                     </div>
                     <div class="form-group">
-                        <label for="department">department:</label>
-                        <input type="text" class="form-control" name="department" />
+                        <label for="name">Choose a department:</label>
+                        <select id="name" name="department">
+                            @foreach($departments as $department)
+
+                                <option value="{{$department->name}}">{{$department->name}}</option>
+                            @endforeach
+
+                        </select>
                     </div>
                     <div class="form-group">
                         <label for="prerequisites">prerequisites:</label>

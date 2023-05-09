@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Subjects extends Model
+class Courses extends Model
 {
 
     protected $fillable = [
@@ -18,15 +18,22 @@ class Subjects extends Model
 
 
 
-    public function students()
+    public function students(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(Students::class)->withPivot('grade')->withTimestamps();
     }
 
-    public function department()
+    public function departments(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Departments::class);
     }
+    public static function getSubjects()
+    {
+        return Courses::all();
+    }
+
+
+
 }
 
 
