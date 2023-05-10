@@ -80,8 +80,10 @@ class AdminController extends Controller
 
     public function listCourses()
     {
+
         $Subjects = Courses::getSubjects();
         return view('lists.CoursesList')->with(['courses'=>$Subjects]);
+
 
     }
 
@@ -89,12 +91,21 @@ class AdminController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function Absence()
+    public function Absence($course)
     {
-        $students = User::getStudents();
+//        $students = User::getStudents();
         // Create a new Dompdf instance
+        $students_ids = StudentsSubjects::getAbsence("$course")
+            ->pluck('students_id')
+            ->toArray()
+        ;
+
+        $students = User::whereIn("id", $students_ids)->get();
+
+
+
         $pdf = new Dompdf();
 
         // Load the blade view with the students data and convert it to HTML
@@ -109,7 +120,9 @@ class AdminController extends Controller
         $pdf->render();
 
         // Output the generated PDF to the browser
-        return $pdf->stream('students.pdf');
+//        return $pdf->stream('students.pdf');
+        return response()->json($students);
+
     }
 
     /**

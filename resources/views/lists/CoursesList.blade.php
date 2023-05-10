@@ -22,6 +22,8 @@
                             <th scope="col">Name</th>
                             <th scope="col">Code</th>
                             <th scope="col">Department</th>
+                            <th scope="col">Absence File</th>
+
 
                         </tr>
                         </thead>
@@ -32,6 +34,7 @@
                                 <td>{{ $course->name }}</td>
                                 <td>{{ $course->code }}</td>
                                 <td>{{ $course->department }}</td>
+                                <td><a href="/GenerateAbsence/{{$course->name}}">{{$course->name}}</a></td>
 
                             </tr>
                         @endforeach

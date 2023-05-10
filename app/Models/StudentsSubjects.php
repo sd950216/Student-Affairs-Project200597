@@ -14,16 +14,19 @@ class StudentsSubjects extends Model
         'departments_id',
     ];
 
-    public function registered_students()
+    public function registered_students(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(Students::class);
     }
 
-    public function department()
+    public function department(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Departments::class);
     }
-
+    public static function GetAbsence($subject)
+    {
+        return StudentsSubjects::where(['name' => $subject])->get();
+    }
 
 
 }
