@@ -32,8 +32,6 @@ class Courses extends Model
         return Courses::all();
     }
 
-
-
 }
 
 

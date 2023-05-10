@@ -15,14 +15,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('/AddDepartment', 'App\Http\Controllers\DepartmentController@index');
-Route::post('/storeDepartment', 'App\Http\Controllers\DepartmentController@store')->name('storeDepartment');
-Route::get('/AddSubject', 'App\Http\Controllers\SubjectController@index');
-Route::post('/storeSubject', 'App\Http\Controllers\SubjectController@store')->name('storeSubject');
-Route::get('/CreateStudentAccount', 'App\Http\Controllers\StudentController@index');
-Route::post('/storeStudentAccount', 'App\Http\Controllers\StudentController@store')->name('storeStudentAccount');
-Route::get('/CreateDoctorAccount', 'App\Http\Controllers\DoctorController@index')->name('controllers.doctor.index');;
-Route::post('/storeDoctorAccount', 'App\Http\Controllers\DoctorController@store')->name('storeDoctorAccount');
+Route::middleware(['auth', 'role:admin'])->group(function () {
+    // add more routes here
+    Route::get('/AddDepartment', 'App\Http\Controllers\DepartmentController@index');
+    Route::post('/storeDepartment', 'App\Http\Controllers\DepartmentController@store')->name('storeDepartment');
+    Route::get('/AddSubject', 'App\Http\Controllers\SubjectController@index');
+    Route::post('/storeSubject', 'App\Http\Controllers\SubjectController@store')->name('storeSubject');
+    Route::get('/CreateStudentAccount', 'App\Http\Controllers\StudentController@index');
+    Route::post('/storeStudentAccount', 'App\Http\Controllers\StudentController@store')->name('storeStudentAccount');
+    Route::get('/CreateDoctorAccount', 'App\Http\Controllers\DoctorController@index')->name('controllers.doctor.index');;
+    Route::post('/storeDoctorAccount', 'App\Http\Controllers\DoctorController@store')->name('storeDoctorAccount');
+});
+
+
 Route::get('/GenerateAbsence/{course}', 'App\Http\Controllers\AdminController@Absence');
 
 Route::get('/list/students', 'App\Http\Controllers\AdminController@listStudents');

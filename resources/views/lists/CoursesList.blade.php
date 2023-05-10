@@ -33,8 +33,9 @@
                                 <th scope="row">{{ $course->id }}</th>
                                 <td>{{ $course->name }}</td>
                                 <td>{{ $course->code }}</td>
-                                <td>{{ $course->department }}</td>
-                                <td><a href="/GenerateAbsence/{{$course->name}}">{{$course->name}}</a></td>
+                                <td style="  display: table-cell;
+  text-align: center;">{{ $course->department }}</td>
+                                <td ><a href="/GenerateAbsence/{{$course->name}}" style="text-decoration: None;font-size: 16px;color: black">{{$course->name}}.pdf</a></td>
 
                             </tr>
                         @endforeach

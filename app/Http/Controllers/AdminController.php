@@ -104,8 +104,6 @@ class AdminController extends Controller
 
         $students = User::whereIn("id", $students_ids)->get();
 
-
-
         $pdf = new Dompdf();
 
         // Load the blade view with the students data and convert it to HTML
@@ -118,9 +116,8 @@ class AdminController extends Controller
 
         // Render the PDF
         $pdf->render();
-
         // Output the generated PDF to the browser
-//        return $pdf->stream('students.pdf');
+//        return $pdf->stream($course);
         return response()->json($students);
 
     }
