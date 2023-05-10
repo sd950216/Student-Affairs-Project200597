@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Route;
 */
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::middleware(['auth', 'role:admin'])->group(function () {
+
     // add more routes here
     Route::get('/AddDepartment', 'App\Http\Controllers\DepartmentController@index');
     Route::post('/storeDepartment', 'App\Http\Controllers\DepartmentController@store')->name('storeDepartment');
