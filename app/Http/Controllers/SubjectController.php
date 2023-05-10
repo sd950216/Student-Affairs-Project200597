@@ -41,27 +41,47 @@ class SubjectController extends Controller
      */
     public function store(Request $request)
     {
-        //
-//        //
+        $department_id = Departments::where('name', $request->get('department'))->first()->id;
+
         $request->validate([
-            'name' => 'required',
-            'code' => 'required',
+            'name' => 'required|unique:courses|max:20',
+            'code' => 'required|numeric|unique:courses',
             'department' => 'required',
             'prerequisites' => 'required',
         ]);
-        $department_id = Departments::where('name', $request->get('department'))->first()->id;
-        $Subject = new Courses([
-            'name' => $request->get('name'),
-            'code' => $request->get('code'),
-            'department' => $request->get('department'),
-            'departments_id' => $department_id,
-            'prerequisites' => $request->get('prerequisites'),
 
-        ]);
+        try {
 
-        $Subject->save();
+            // Attempt to insert the record
+            $Course = new Courses([
+                'name' => $request->get('name'),
+                'code' => $request->get('code'),
+                'department' => $request->get('department'),
+                'departments_id' => $department_id,
+                'prerequisites' => $request->get('prerequisites'),
 
-        return redirect('/')->with('success', 'Subject has been created successfully!');
+            ]);
+
+
+            $Course->save();
+
+            // Redirect the user with a success message
+            return redirect('/')->with('success', 'Course has been created successfully!');
+        } catch (\Illuminate\Database\QueryException $e) {
+            // Catch the exception and display a user-friendly error message
+            $errorCode = $e->errorInfo[1];
+            if ($errorCode == 1062) {
+                return redirect()->back()->withInput()->withErrors([
+                    'name' => 'The course name is already taken. Please choose a different name.',
+                    'code' => 'The course code is already taken. Please choose a different code.'
+                ]);
+            }
+
+            // If the exception is not a duplicate key error, re-throw it
+            throw $e;
+        }
+
+
     }
 
     /**

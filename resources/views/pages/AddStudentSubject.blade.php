@@ -24,10 +24,14 @@
                     @csrf
                     <div class="form-group">
                         <label for="name" style="margin-top: 5px;">Choose a subject:</label>
-                        <select id="name" name="name">
+                        <select id="name" name="name" style="padding: 4px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  font-size: 16px;">
                             @foreach($subjects as $subject)
 
-                            <option value="{{$subject->name}}">{{$subject->name}}</option>
+                            <option value="{{$subject->name}}" style="padding: 8px;
+  font-size: 16px;">{{$subject->name}}</option>
                             @endforeach
 
                         </select>

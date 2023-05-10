@@ -60,13 +60,17 @@
                                 <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
                             </div>
                         </div>
-                        <div id="academic-number-field" style="display: none;">
+                        <div id="academic-number-field" style="display: block;">
                             <div class="row mb-3">
                                 <label for="academic-number" class="col-md-4 col-form-label text-md-end">{{ __('academic_number') }}</label>
 
                                 <div class="col-md-6">
-                                    <input id="academic-number" value="null" type="text" class="form-control" name="AcademicNumber" required autocomplete="name">
-
+                                    <input id="academic-number" value="null" type="text" class="form-control{{ $errors->has('AcademicNumber') ? ' is-invalid' : '' }}" name="AcademicNumber" required autocomplete="name">
+                                    @if ($errors->has('AcademicNumber'))
+                                        <div class="invalid-feedback">
+                                            {{ $errors->first('AcademicNumber') }}
+                                        </div>
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -76,10 +80,10 @@
 
                             <div class="col-md-6">
                                 <label>
-                                    <input type="radio" name="role" value="student"  onchange="toggleAcademicNumberField()"> Student
+                                    <input type="radio" name="role" value="student" checked onchange="toggleAcademicNumberField()"> Student
                                 </label>
                                 <label>
-                                    <input type="radio" name="role" value="doctor" checked  onchange="toggleAcademicNumberField()"> Doctor
+                                    <input type="radio" name="role" value="doctor"   onchange="toggleAcademicNumberField()"> Doctor
                                 </label>
                                 <br>
 

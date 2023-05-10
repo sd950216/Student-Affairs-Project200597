@@ -39,21 +39,41 @@ class DepartmentController extends Controller
      */
     public function store(Request $request)
     {
-        //
-        $request->validate([
-            'name' => 'required',
-            'code' => 'required',
-        ]);
 
-        $Department = new Departments([
-            'name' => $request->get('name'),
-            'code' => $request->get('code'),
 
-        ]);
+    $validatedData = $request->validate([
+        'name' => 'required|unique:departments|max:10',
+        'code' => 'sometimes|required|numeric|unique:departments'
+        // other validation rules for your form fields
+    ]);
 
-        $Department->save();
+        try {
+            // Attempt to insert the record
 
-        return redirect('/')->with('success', 'Department has been created successfully!');
+            $Department = new Departments([
+                'name' => $request->get('name'),
+                'code' => $request->get('code'),
+
+            ]);
+            $Department->save();
+
+            // Redirect the user with a success message
+            return redirect('/')->with('success', 'Department has been created successfully!');
+        } catch (\Illuminate\Database\QueryException $e) {
+            // Catch the exception and display a user-friendly error message
+            $errorCode = $e->errorInfo[1];
+            if ($errorCode == 1062) {
+                return redirect()->back()->withInput()->withErrors(['name' => 'The department name is already taken. Please choose a different name.',
+                    'code' => 'The department code is already taken. Please choose a different code.'
+                ]);
+            }
+
+            // If the exception is not a duplicate key error, re-throw it
+            throw $e;
+        }
+
+
+
     }
 
     /**

@@ -8,6 +8,10 @@ use App\Models\StudentsSubjects;
 use App\Models\Courses;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Dompdf\Dompdf;
+use Dompdf\Options;
+
+use Illuminate\Support\Facades\View;
 
 class AdminController extends Controller
 {
@@ -87,9 +91,25 @@ class AdminController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function Absence()
     {
-        //
+        $students = User::getStudents();
+        // Create a new Dompdf instance
+        $pdf = new Dompdf();
+
+        // Load the blade view with the students data and convert it to HTML
+        $html = view('pages.GenerateAbsence', compact('students'))->render();
+
+
+
+        // Load the HTML into Dompdf
+        $pdf->loadHtml($html);
+
+        // Render the PDF
+        $pdf->render();
+
+        // Output the generated PDF to the browser
+        return $pdf->stream('students.pdf');
     }
 
     /**

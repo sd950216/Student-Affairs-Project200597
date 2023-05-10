@@ -23,7 +23,7 @@ Route::get('/CreateStudentAccount', 'App\Http\Controllers\StudentController@inde
 Route::post('/storeStudentAccount', 'App\Http\Controllers\StudentController@store')->name('storeStudentAccount');
 Route::get('/CreateDoctorAccount', 'App\Http\Controllers\DoctorController@index')->name('controllers.doctor.index');;
 Route::post('/storeDoctorAccount', 'App\Http\Controllers\DoctorController@store')->name('storeDoctorAccount');
-Route::get('/GenerateAbsence/{subject}', 'App\Http\Controllers\AdminController@GenerateAbsence');
+Route::get('/GenerateAbsence/', 'App\Http\Controllers\AdminController@Absence');
 
 Route::get('/list/students', 'App\Http\Controllers\AdminController@listStudents');
 Route::get('/list/doctors', 'App\Http\Controllers\AdminController@listDoctors');

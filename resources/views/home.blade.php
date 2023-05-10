@@ -56,7 +56,7 @@
                 <div class="col">
                     <div class="p-3 bg-white border rounded-3" style="height: 100%;">
                         <h3>Manage colleague better</h3>
-                        <p class="text-end">with <i class="bi bi-lightning"></i> <a href="https://github.com/changeweb/Unifiedtransform" target="_blank" style="text-decoration: none;">Unifiedtransform</a> <i class="bi bi-lightning"></i>.</p>
+                        <p class="text-end">with <i class="bi bi-lightning"></i> <a href="https://github.com/sd950216/laravel_project" target="_blank" style="text-decoration: none;">MoTrap</a> <i class="bi bi-lightning"></i>.</p>
                     </div>
                 </div>
             </div>
