@@ -30,7 +30,10 @@
                     </div>
                     <div class="form-group">
                         <label for="name">Choose a department:</label>
-                        <select id="name" name="department" >
+                        <select id="name" name="department" style="padding: 4px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  font-size: 16px;" >
                             @foreach($departments as $department)
 
                                 <option value="{{$department->name}}">{{$department->name}}</option>
@@ -40,7 +43,7 @@
                     </div>
                     <div class="form-group">
                         <label for="prerequisites">prerequisites:</label>
-                        <input type="text" class="form-control" name="prerequisites" value="{{ old('prerequisites') }}" />
+                        <input id="prerequisites" type="text" class="form-control" name="prerequisites" value="{{ old('prerequisites') }}" />
                     </div>
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </form>
