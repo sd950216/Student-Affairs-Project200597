@@ -1,7 +1,9 @@
 <?php
 
+use App\Models\User;
 use Dotenv\Dotenv;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Validator;
@@ -29,6 +31,10 @@ Route::post('/create-admin', function (Illuminate\Http\Request $request) {
     if ($request->header('X-API-KEY') != $apiKey) {
         return response()->json(['error' => 'Unauthorized'], 401);
     }
+    if (User::GetAdmin() == 1) {
+        return response()->json(['error' => 'There is already an admin'], 401);
+
+    }
 
     // Create admin user
     $admin = new App\Models\User;
@@ -38,6 +44,6 @@ Route::post('/create-admin', function (Illuminate\Http\Request $request) {
     $admin->role = 'admin';
     $admin->save();
 
-    return response()->json(['message' => 'Admin user created successfully'], 201);
+    return User::GetAdmin();
 });
 

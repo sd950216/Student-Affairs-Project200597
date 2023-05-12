@@ -59,6 +59,10 @@ class User extends Authenticatable
     {
         return User::where('role', 'doctor')->get();
     }
+    public static function GetAdmin()
+    {
+        return User::where('role', 'admin')->get()->count();
+    }
 
 
 
