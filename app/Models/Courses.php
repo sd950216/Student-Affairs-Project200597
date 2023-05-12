@@ -31,7 +31,11 @@ class Courses extends Model
     {
         return Courses::all();
     }
+    public static function getSpecialization($specialization)
+    {
 
+        return Courses::where('name', $specialization)->get();
+    }
 }
 
 

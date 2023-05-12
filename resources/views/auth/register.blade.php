@@ -60,7 +60,7 @@
                                 <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
                             </div>
                         </div>
-                        <div id="academic-number-field" style="display: block;">
+                        <div id="academic-number-field" style="display: none;">
                             <div class="row mb-3">
                                 <label for="academic-number" class="col-md-4 col-form-label text-md-end">{{ __('academic_number') }}</label>
 
@@ -74,22 +74,47 @@
                                 </div>
                             </div>
                         </div>
+                        <div id="doctor-specialization-field" style="display: none;">
+                            <div class="row mb-3" >
+                                <label for="specialization" class="col-md-4 col-form-label text-md-end">{{ __('specialization') }}</label>
+                                <br>
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="specialization" style="margin-top: 5px;">Choose a Course:</label>
+                                        <select id="specialization" class="{{ $errors->has('specialization') ? ' is-invalid' : '' }}" name="specialization" style="padding: 4px;border-radius: 4px;border: 1px solid #ccc; font-size: 16px;background-color: #0a53be;color: #EEEEEE;width: 30%">
+                                            @foreach($subjects as $subject)
+                                                <option value="{{$subject->name}}" style="padding: 8px;  font-size: 16px;">{{$subject->name}}</option>
+                                            @endforeach
+                                        </select>
+                                        @if ($errors->has('specialization'))
+                                            <div class="invalid-feedback">
+                                                {{ $errors->first('specialization') }}
+                                            </div>
+                                        @endif
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
                         <div class="row mb-3">
                             <label for="role" class="col-md-4 col-form-label text-md-end">{{ __('Role') }}</label>
                             <br>
 
                             <div class="col-md-6">
                                 <label>
-                                    <input type="radio" name="role" value="student" checked onchange="toggleAcademicNumberField()"> Student
+                                    <input type="radio" name="role" value="student"  required {{old('role')=='student'?'checked':''}} onchange="toggleAcademicNumberField()"> Student
                                 </label>
                                 <label>
-                                    <input type="radio" name="role" value="doctor"   onchange="toggleAcademicNumberField()"> Doctor
+                                    <input type="radio" name="role" value="doctor"  {{old('role')=='doctor'?'checked':''}} onchange="toggleAcademicNumberField()"> Doctor
                                 </label>
                                 <br>
 
                             </div>
 
                         </div>
+
 
 
                         <div class="row mb-0">
@@ -101,17 +126,35 @@
                         </div>
                     </form>
                     <script>
+                        var DoctorSpecializationField = document.getElementById("doctor-specialization-field");
+                        var academicNumberField = document.getElementById("academic-number-field");
+
+                        @if($errors->has('specialization'))
+                            DoctorSpecializationField.style.display = "block";
+
+
+                        @endif
+                        @if ($errors->has('AcademicNumber'))
+                            academicNumberField.style.display = "block";
+
+                        @endif
                         function toggleAcademicNumberField() {
-                            var academicNumberField = document.getElementById("academic-number-field");
                             var academicNumberInput = document.getElementById("academic-number");
                             var studentRadioBtn = document.querySelector('input[name="role"][value="student"]');
+                            var DoctorSpecializationInput = document.getElementById("specialization");
+
+
 
                             if (studentRadioBtn.checked) {
                                 academicNumberField.style.display = "block";
                                 academicNumberInput.setAttribute("required", "");
+                                DoctorSpecializationField.style.display = "none";
+                                DoctorSpecializationInput.removeAttribute("required");
                             } else {
                                 academicNumberField.style.display = "none";
                                 academicNumberInput.removeAttribute("required");
+                                DoctorSpecializationField.style.display = "block";
+                                DoctorSpecializationInput.setAttribute("required", "");
                             }
                         }
                     </script>

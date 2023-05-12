@@ -20,6 +20,9 @@ class StudentsSubjectsController extends Controller
         //
         //
         $subjects = Courses::all();
+        if ($subjects->count()==0){
+            return redirect('/AddSubject')->with('message', 'Please add subject first.');
+        }
         $title = "CreateAccount";
         return view('pages.AddStudentSubject')->with('title', $title)->with(compact('subjects'));
     }
@@ -29,10 +32,7 @@ class StudentsSubjectsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        //
-    }
+
 
     /**
      * Store a newly created resource in storage.
@@ -64,48 +64,5 @@ class StudentsSubjectsController extends Controller
         return redirect('/')->with('success', 'Subject has been created successfully!');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\StudentsSubjects  $studentsSubjects
-     * @return \Illuminate\Http\Response
-     */
-    public function show(StudentsSubjects $studentsSubjects)
-    {
-        //
-    }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\StudentsSubjects  $studentsSubjects
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(StudentsSubjects $studentsSubjects)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\StudentsSubjects  $studentsSubjects
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, StudentsSubjects $studentsSubjects)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\StudentsSubjects  $studentsSubjects
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(StudentsSubjects $studentsSubjects)
-    {
-        //
-    }
 }

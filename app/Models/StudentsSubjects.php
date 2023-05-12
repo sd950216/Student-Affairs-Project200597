@@ -27,6 +27,9 @@ class StudentsSubjects extends Model
     {
         return StudentsSubjects::where(['name' => $subject])->get();
     }
-
+    public static function getSubjects($student_id)
+    {
+        return StudentsSubjects::where(['students_id' => $student_id])->get();
+    }
 
 }

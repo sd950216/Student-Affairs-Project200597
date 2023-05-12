@@ -23,6 +23,7 @@ class User extends Authenticatable
         'password',
         'role',
         'AcademicNumber',
+        'Specialization',
 
     ];
 
@@ -58,6 +59,7 @@ class User extends Authenticatable
     {
         return User::where('role', 'doctor')->get();
     }
+
 
 
 }

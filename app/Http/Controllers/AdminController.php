@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Dompdf\Dompdf;
 use Dompdf\Options;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
 
 class AdminController extends Controller
@@ -80,24 +81,33 @@ class AdminController extends Controller
 
     public function listCourses()
     {
+        if (Auth::user()->role == 'admin') {
+            $courses = Courses::getSubjects();
 
-        $Subjects = Courses::getSubjects();
-        return view('lists.CoursesList')->with(['courses'=>$Subjects]);
+        }
+        else if (Auth::user()->role == 'doctor') {
+            $courses = Courses::getSpecialization(Auth::user()->specialization);
 
+        }
+        else
+            $courses = StudentsSubjects::getSubjects(Auth::user()->id);
+
+
+        return view('lists.CoursesList')->with(['courses'=>$courses]);
 
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function Absence($course)
     {
 //        $students = User::getStudents();
         // Create a new Dompdf instance
-        $students_ids = StudentsSubjects::getAbsence("$course")
+        $students_ids = StudentsSubjects::GetAbsence("$course")
             ->pluck('students_id')
             ->toArray()
         ;
@@ -122,48 +132,4 @@ class AdminController extends Controller
 
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
 }

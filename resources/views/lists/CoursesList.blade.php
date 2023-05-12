@@ -20,9 +20,11 @@
                         <tr>
                             <th scope="col">ID</th>
                             <th scope="col">Name</th>
-                            <th scope="col">Code</th>
                             <th scope="col">Department</th>
-                            <th scope="col">Absence File</th>
+                            @if (Auth::check() && Auth::user()->role != 'student')
+                                <th scope="col">Code</th>
+                                <th scope="col">Absence File</th>
+                            @endif
 
 
                         </tr>
@@ -32,10 +34,14 @@
                             <tr>
                                 <th scope="row">{{ $course->id }}</th>
                                 <td>{{ $course->name }}</td>
-                                <td>{{ $course->code }}</td>
-                                <td style="  display: table-cell;
-  text-align: center;">{{ $course->department }}</td>
-                                <td ><a href="/GenerateAbsence/{{$course->name}}" style="text-decoration: None;font-size: 16px;color: black">{{$course->name}}.pdf</a></td>
+                                <td style="display: table-cell; text-align: center;">{{ $course->department }}</td>
+
+                            @if (Auth::check() && Auth::user()->role != 'student')
+                                    <td style="display: table-cell; text-align: center;">{{ $course->code }}</td>
+                                    <td><a href="/GenerateAbsence/{{$course->name}}" style="text-decoration: none; font-size: 16px; color: black">{{ $course->name }}.pdf</a></td>
+                                @endif
+
+
 
                             </tr>
                         @endforeach

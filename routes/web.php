@@ -29,7 +29,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 });
 
 
-Route::get('/GenerateAbsence/{course}', 'App\Http\Controllers\AdminController@Absence');
+Route::get('/GenerateAbsence/{course}', 'App\Http\Controllers\AdminController@Absence')->middleware('checkRole:admin,doctor');
 
 Route::get('/list/students', 'App\Http\Controllers\AdminController@listStudents');
 Route::get('/list/doctors', 'App\Http\Controllers\AdminController@listDoctors');
@@ -38,7 +38,7 @@ Route::get('/list/courses', 'App\Http\Controllers\AdminController@listCourses');
 Route::get('/StudentSubject', 'App\Http\Controllers\StudentsSubjectsController@index');
 Route::post('/storeStudentSubject', 'App\Http\Controllers\StudentsSubjectsController@store')->name('storeStudentSubject');
 
-Route::get('/secret/{api_key}', 'App\Http\Controllers\ApiController@get')->name('api');
+//Route::get('/secret/{api_key}', 'App\Http\Controllers\ApiController@get')->name('api');
 
 
 require __DIR__.'/auth.php';

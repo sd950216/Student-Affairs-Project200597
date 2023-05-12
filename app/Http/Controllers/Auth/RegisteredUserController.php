@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Courses;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
@@ -18,9 +19,15 @@ class RegisteredUserController extends Controller
     /**
      * Display the registration view.
      */
-    public function create(): View
+    public function create()
     {
-        return view('auth.register');
+        $subjects = Courses::all();
+        if ($subjects->count()==0){
+            return redirect('/AddSubject')->with('message', 'Please add subject first.');
+        }
+        else
+
+        return view('auth.register')->with(compact('subjects'));
     }
 
     /**
@@ -36,6 +43,7 @@ class RegisteredUserController extends Controller
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
             'role' => ['required', 'string', 'max:255'],
             'AcademicNumber' => $request->get('role') === 'student' ? 'required|string|numeric|unique:users' : '',
+            'specialization' => $request->get('role') === 'doctor' ? 'required|string|unique:users' : '',
 
 
         ]);
@@ -46,6 +54,8 @@ class RegisteredUserController extends Controller
             'password' => Hash::make($request->password),
             'role' => $request->role,
             'AcademicNumber' => $request->AcademicNumber,
+            'specialization' => $request->specialization,
+
 
         ]);
         event(new Registered($user));
