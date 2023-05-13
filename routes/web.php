@@ -40,6 +40,9 @@ Route::post('/storeStudentSubject', 'App\Http\Controllers\StudentsCoursesControl
 Route::post('/updateStatus', 'App\Http\Controllers\AdminController@updateStatus')->name('admin.updateStatus')->middleware('checkRole:doctor');
 
 //Route::get('/secret/{api_key}', 'App\Http\Controllers\ApiController@get')->name('api');
-
+Route::get('/upload', 'App\Http\Controllers\FilesController@index')->name('files.index')->middleware('checkRole:doctor');;
+Route::post('/store-files', 'App\Http\Controllers\FilesController@store')->name('files.store')->middleware('checkRole:doctor,student');;
+Route::get('/files/{FileName}', 'App\Http\Controllers\FilesController@download')->name('files.download');
+Route::get('/list/files', 'App\Http\Controllers\FilesController@show');
 
 require __DIR__.'/auth.php';

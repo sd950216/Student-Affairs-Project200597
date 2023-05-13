@@ -20,6 +20,8 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">    @yield('styles')
 
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/min/dropzone.min.css" rel="stylesheet" />
+
 </head>
 <body>
     <div id="app">
@@ -73,9 +75,17 @@
                                     <li class="nav-item">
                                         <a class="nav-link " href="/StudentSubject">AddStudentSubject</a>
                                     </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link " href="/list/files">Files</a>
+                                    </li>
                               @endif
+                                @if (Auth::user()->role == 'doctor')
+                                    <li class="nav-item">
+                                        <a class="nav-link " href="/list/files">Files</a>
+                                    </li>
+                                @endif
 
-                            <li class="nav-item dropdown">
+                                <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }}
                                 </a>
@@ -102,5 +112,7 @@
             @yield('content')
         </main>
     </div>
+@yield('scripts')
 </body>
+
 </html>

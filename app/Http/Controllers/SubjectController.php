@@ -21,7 +21,7 @@ class SubjectController extends Controller
         if ($departments->count() == 0)
             return redirect('/AddDepartment')->with('message', 'Please add department first.');
 
-        return view('pages.AddSubject')->with('title', $title)->with('departments', $departments);
+        return view('pages.AddCourse')->with('title', $title)->with('departments', $departments);
 
     }
 
