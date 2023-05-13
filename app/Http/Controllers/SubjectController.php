@@ -45,7 +45,6 @@ class SubjectController extends Controller
             'name' => 'required|unique:courses|max:20',
             'code' => 'required|numeric|unique:courses',
             'department' => 'required',
-            'prerequisites' => 'required',
         ]);
 
         try {

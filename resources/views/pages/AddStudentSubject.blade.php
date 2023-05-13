@@ -7,6 +7,9 @@
                     <div class="card-header">Add Subject </div>
 
                     <div class="card-body">
+                        @if(count($subjects) == 0)
+                            No more available courses to add
+                        @else
                 <form method="POST" action="{{ route('storeStudentSubject') }}" enctype="multipart/form-data">
                     @csrf
                     <div class="form-group">
@@ -23,10 +26,10 @@
 
                         </select>
                     </div>
-
-
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </form>
+                        @endif
+
                     </div>
                 </div>
             </div>

@@ -29,7 +29,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 });
 
 
-Route::get('/GenerateAbsence/{course}', 'App\Http\Controllers\AdminController@Absence')->middleware('checkRole:admin,doctor');
+Route::get('/GenerateAbsence/{course}', 'App\Http\Controllers\AdminController@Absence')->middleware('checkRole:doctor');
 
 Route::get('/list/students', 'App\Http\Controllers\AdminController@listStudents');
 Route::get('/list/doctors', 'App\Http\Controllers\AdminController@listDoctors');

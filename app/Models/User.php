@@ -62,7 +62,11 @@ class User extends Authenticatable
     }
     public static function GetDoctorStudents()
     {
-        $students = User::join('student_courses', 'users.id', '=', 'student_courses.students_id')
+//        $students = User::join('student_courses', 'users.id', '=', 'student_courses.students_id')
+//            ->where('student_courses.name', Auth::user()->specialization)
+//            ->get();
+        $students = User::select('users.*','student_courses.Department','student_courses.status')
+            ->join('student_courses', 'users.id', '=', 'student_courses.students_id')
             ->where('student_courses.name', Auth::user()->specialization)
             ->get();
 
