@@ -14,7 +14,7 @@ class Departments extends Model
         'code',
     ];
 
-    public function subjects()
+    public function subjects(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Courses::class);
     }

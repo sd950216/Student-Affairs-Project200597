@@ -67,16 +67,28 @@ class AdminController extends Controller
 
     public function listDoctors()
     {
-        $doctors = User::getDoctors();
+        if (Auth::user()->role == 'admin')
+            $doctors = User::getDoctors();
+        else if (Auth::user()->role == 'doctor')
+            $doctors = User::GetOneDoctor();
+        else
+            $doctors = User::GetStudentDoctors();
+
+
         return view('lists.DoctorList')->with(['doctors'=>$doctors]);
 
     }
     public function listStudents()
     {
-        $students = User::getStudents();
-        return view('lists.studentList')->with(['students'=>$students]);
-//        return response()->json($students);
+        if (Auth::user()->role == 'doctor')
+            $students = User::GetDoctorStudents();
+        else if (Auth::user()->role == 'student')
+            $students = User::getCurrentStudent();
+        else
+            $students = User::getStudents();
 
+
+        return view('lists.studentList')->with(['students'=>$students]);
     }
 
     public function listCourses()

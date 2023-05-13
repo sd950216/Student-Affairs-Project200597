@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Students;
 use App\Models\Courses;
 use App\Models\User;
-use Illuminate\Http\Request;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\Support\Renderable;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -22,21 +23,15 @@ class HomeController extends Controller
     /**
      * Show the application dashboard.
      *
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\Support\Renderable|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @return Application|Renderable
      */
     public function index()
-
     {
+        $students = Auth::user()->role == 'student' ? 1 : User::getDoctors()->count();
+        $doctors = Auth::user()->role == 'doctor' ? 1 : User::getDoctors()->count();
+        $courses = Auth::user()->role == 'admin' ? Courses::getSubjects()->count() : 1;
 
-//        $classCount = $this->schoolClassRepository->getAllBySession($current_school_session_id)->count();
-
-        $students = User::getStudents()->count();
-        $doctors = User::getDoctors()->count();
-        $courses = Courses::getSubjects()->count();
-
-
-//        $teacherCount = $this->userRepository->getAllTeachers()->count();
         return view('home', ['students' => $students , 'doctors' => $doctors ,'courses' => $courses ]);
-
     }
+
 }

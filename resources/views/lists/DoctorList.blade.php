@@ -21,6 +21,8 @@
                             <th scope="col">ID</th>
                             <th scope="col">Name</th>
                             <th scope="col">Email</th>
+                            <th scope="col">specialization</th>
+
                         </tr>
                         </thead>
                         <tbody>
@@ -29,6 +31,7 @@
                                 <th scope="row">{{ $doctor->id }}</th>
                                 <td>{{ $doctor->name }}</td>
                                 <td>{{ $doctor->email }}</td>
+                                <td>{{ $doctor->specialization }}</td>
 
                             </tr>
                         @endforeach

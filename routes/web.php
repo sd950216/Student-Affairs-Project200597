@@ -35,7 +35,7 @@ Route::get('/list/students', 'App\Http\Controllers\AdminController@listStudents'
 Route::get('/list/doctors', 'App\Http\Controllers\AdminController@listDoctors');
 Route::get('/list/courses', 'App\Http\Controllers\AdminController@listCourses');
 
-Route::get('/StudentSubject', 'App\Http\Controllers\StudentsSubjectsController@index');
+Route::get('/StudentSubject', 'App\Http\Controllers\StudentsSubjectsController@index')->middleware('checkRole:student');
 Route::post('/storeStudentSubject', 'App\Http\Controllers\StudentsSubjectsController@store')->name('storeStudentSubject');
 
 //Route::get('/secret/{api_key}', 'App\Http\Controllers\ApiController@get')->name('api');

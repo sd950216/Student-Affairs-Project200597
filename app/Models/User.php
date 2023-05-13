@@ -6,6 +6,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Auth;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
@@ -50,14 +51,35 @@ class User extends Authenticatable
         return $this->role === $role;
     }
 
+    public static function getCurrentStudent()
+    {
+        return User::where('id', Auth::user()->id)->get();
+    }
     public static function getStudents()
     {
         return User::where('role', 'student')->get();
+    }
+    public static function GetDoctorStudents()
+    {
+        $students =  StudentsSubjects::all()->pluck('students_id')
+            ->toArray();
+        return User::whereIn('id', $students)->get();
+
     }
 
     public static function getDoctors()
     {
         return User::where('role', 'doctor')->get();
+    }
+    public static function GetOneDoctor()
+    {
+        return User::where('role', 'doctor')->where('specialization', Auth::user()->specialization)->get();
+    }
+    public static function GetStudentDoctors()
+    {
+        $student_courses = StudentsSubjects::getSubjects(Auth::user()->id)->pluck('name')
+            ->toArray();;
+        return User::where('role', 'doctor')->whereIn('specialization', $student_courses)->get();
     }
     public static function GetAdmin()
     {
