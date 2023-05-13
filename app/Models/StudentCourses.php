@@ -40,5 +40,9 @@ class StudentCourses extends Model
     {
         return StudentCourses::where(['students_id' => $student_id])->get();
     }
+    public static function GetPassedSubjects($student_id)
+    {
+        return StudentCourses::where(['students_id' => $student_id, 'status' => 'succeeded'])->get();
+    }
 
 }

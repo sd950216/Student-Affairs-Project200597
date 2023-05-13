@@ -16,18 +16,23 @@ class StudentsCoursesController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return Application|Factory|View
+     * @return Application|Factory|View|\Illuminate\Http\JsonResponse
      */
     public function index()
     {
-        //
-        //
-        $subjects = Courses::all();
-        if ($subjects->count()==0){
+
+        $currrent_student_subject_names = StudentCourses::getSubjects(Auth::user()->id)->pluck('name')->toArray();
+        $passed_subjects = StudentCourses::GetPassedSubjects(Auth::user()->id)->pluck('name')->toArray();
+        $all_subjects = Courses::all();
+        $subjects = $all_subjects->whereNotIn('name', $currrent_student_subject_names)
+            ->whereIn('prerequisites', $passed_subjects);
+
+        if ($all_subjects->count()==0){
             return redirect('/AddSubject')->with('message', 'Please add subject first.');
         }
         $title = "CreateAccount";
         return view('pages.AddStudentSubject')->with('title', $title)->with(compact('subjects'));
+//        return response()->json($filtered_subjects);
     }
 
     /**
