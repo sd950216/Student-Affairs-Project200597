@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Departments;
 use App\Models\Students;
-use App\Models\StudentsSubjects;
+use App\Models\StudentCourses;
 use App\Models\Courses;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -41,7 +41,7 @@ class AdminController extends Controller
     public function GenerateAbsence($subject)
     {
 
-        $stud_name = StudentsSubjects::where('name', $subject)->get();
+        $stud_name = StudentCourses::where('name', $subject)->get();
         $ids = array();
         $names = array();
 
@@ -102,7 +102,7 @@ class AdminController extends Controller
 
         }
         else
-            $courses = StudentsSubjects::getSubjects(Auth::user()->id);
+            $courses = StudentCourses::getSubjects(Auth::user()->id);
 
 
         return view('lists.CoursesList')->with(['courses'=>$courses]);
@@ -117,14 +117,8 @@ class AdminController extends Controller
      */
     public function Absence($course)
     {
-//        $students = User::getStudents();
-        // Create a new Dompdf instance
-        $students_ids = StudentsSubjects::GetAbsence("$course")
-            ->pluck('students_id')
-            ->toArray()
-        ;
 
-        $students = User::whereIn("id", $students_ids)->get();
+        $students = StudentCourses::GetAbsence($course);
 
         $pdf = new Dompdf();
 
@@ -143,5 +137,24 @@ class AdminController extends Controller
         return response()->json($students);
 
     }
+    public function updateStatus(Request $request)
+    {
+        $checkedItems = $request->input('items', []);
 
+        $students = StudentCourses::whereIn('id', $checkedItems)->get();
+        if ($request->has('Succeeded')) {
+            // Handle form submission for submit1
+            foreach ($students as $student) {
+                $student->update(['status' => 'Succeeded']);
+            }
+        }
+        else {
+            // Handle form submission for submit1
+            foreach ($students as $student) {
+                $student->update(['status' => 'Failed']);
+            }
+        }
+        return redirect()->back();
+
+    }
 }

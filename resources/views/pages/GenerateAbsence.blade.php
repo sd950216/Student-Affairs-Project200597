@@ -9,7 +9,10 @@
     table td {
         padding: 10px;
         border: 1px solid #000;
+        text-align: center;
+
     }
+
 </style>
 
 <table>
@@ -17,7 +20,11 @@
     <tr>
         <th>ID</th>
         <th>Name</th>
+        <th>Email</th>
+        <th>Department</th>
         <th>Academic Number</th>
+        <th>status</th>
+
     </tr>
     </thead>
     <tbody>
@@ -25,7 +32,11 @@
         <tr>
             <td>{{ $key+1 }}</td>
             <td>{{ $student->name }}</td>
+            <td>{{ $student->email }}</td>
+            <td>{{ $student->Department }}</td>
             <td>{{ $student->AcademicNumber }}</td>
+            <td>{{ $student->status }}</td>
+
         </tr>
     @endforeach
     </tbody>

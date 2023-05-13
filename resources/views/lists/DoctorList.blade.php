@@ -26,9 +26,9 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach ($doctors as $doctor)
+                        @foreach ($doctors as $key => $doctor)
                             <tr>
-                                <th scope="row">{{ $doctor->id }}</th>
+                                <th scope="row">{{ $key+1 }}</th>
                                 <td>{{ $doctor->name }}</td>
                                 <td>{{ $doctor->email }}</td>
                                 <td>{{ $doctor->specialization }}</td>

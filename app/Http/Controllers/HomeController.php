@@ -27,7 +27,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $students = Auth::user()->role == 'student' ? 1 : User::getDoctors()->count();
+        $students = Auth::user()->role == 'student' ? 1 : User::getStudents()->count();
         $doctors = Auth::user()->role == 'doctor' ? 1 : User::getDoctors()->count();
         $courses = Auth::user()->role == 'admin' ? Courses::getSubjects()->count() : 1;
 

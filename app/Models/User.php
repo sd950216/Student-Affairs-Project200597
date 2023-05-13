@@ -26,6 +26,7 @@ class User extends Authenticatable
         'AcademicNumber',
         'Specialization',
 
+
     ];
 
     /**
@@ -61,9 +62,11 @@ class User extends Authenticatable
     }
     public static function GetDoctorStudents()
     {
-        $students =  StudentsSubjects::all()->pluck('students_id')
-            ->toArray();
-        return User::whereIn('id', $students)->get();
+        $students = User::join('student_courses', 'users.id', '=', 'student_courses.students_id')
+            ->where('student_courses.name', Auth::user()->specialization)
+            ->get();
+
+        return $students;
 
     }
 
@@ -77,7 +80,7 @@ class User extends Authenticatable
     }
     public static function GetStudentDoctors()
     {
-        $student_courses = StudentsSubjects::getSubjects(Auth::user()->id)->pluck('name')
+        $student_courses = StudentCourses::getSubjects(Auth::user()->id)->pluck('name')
             ->toArray();;
         return User::where('role', 'doctor')->whereIn('specialization', $student_courses)->get();
     }

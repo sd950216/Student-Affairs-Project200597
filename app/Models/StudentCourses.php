@@ -4,14 +4,16 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
-class StudentsSubjects extends Model
+class StudentCourses extends Model
 {
     protected $fillable = [
         'name',
         'students_id',
         'department',
         'departments_id',
+        'status',
     ];
 
     public function registered_students(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
@@ -25,11 +27,18 @@ class StudentsSubjects extends Model
     }
     public static function GetAbsence($subject)
     {
-        return StudentsSubjects::where(['name' => $subject])->get();
+        $students = User::select('users.*','student_courses.Department','student_courses.status')
+            ->join('student_courses', 'users.id', '=', 'student_courses.students_id')
+            ->where('student_courses.name', $subject)
+            ->get();
+        return $students;
+
+
     }
+
     public static function getSubjects($student_id)
     {
-        return StudentsSubjects::where(['students_id' => $student_id])->get();
+        return StudentCourses::where(['students_id' => $student_id])->get();
     }
 
 }
