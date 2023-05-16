@@ -141,7 +141,7 @@ class AdminController extends Controller
     {
         $checkedItems = $request->input('items', []);
 
-        $students = StudentCourses::whereIn('id', $checkedItems)->get();
+        $students = StudentCourses::whereIn('students_id', $checkedItems)->get();
         if ($request->has('Succeeded')) {
             // Handle form submission for submit1
             foreach ($students as $student) {
@@ -155,6 +155,6 @@ class AdminController extends Controller
             }
         }
         return redirect()->back();
-
+//        return response()->json($checkedItems);
     }
 }

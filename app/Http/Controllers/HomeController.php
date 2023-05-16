@@ -29,7 +29,7 @@ class HomeController extends Controller
     public function index()
     {
 
-        if (Auth::user()->role == 'Admin') {
+        if (Auth::user()->role == 'admin') {
             $students = User::getStudents()->count();
             $doctors = User::getDoctors()->count();
             $courses = Courses::getSubjects()->count();

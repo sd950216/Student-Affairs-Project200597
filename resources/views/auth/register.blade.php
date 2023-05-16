@@ -142,7 +142,7 @@
                             var academicNumberInput = document.getElementById("academic-number");
                             var studentRadioBtn = document.querySelector('input[name="role"][value="student"]');
                             var DoctorSpecializationInput = document.getElementById("specialization");
-
+                            var selectElement = document.getElementById('specialization');
 
 
                             if (studentRadioBtn.checked) {
@@ -150,6 +150,7 @@
                                 academicNumberInput.setAttribute("required", "");
                                 DoctorSpecializationField.style.display = "none";
                                 DoctorSpecializationInput.removeAttribute("required");
+                                selectElement.value = null;
                             } else {
                                 academicNumberField.style.display = "none";
                                 academicNumberInput.removeAttribute("required");

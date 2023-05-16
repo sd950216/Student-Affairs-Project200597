@@ -20,6 +20,8 @@
                         <tr>
                             <th scope="col">ID</th>
                             <th scope="col">Name</th>
+                            <th scope="col">Course</th>
+
                             <th scope="col">Link</th>
                         </tr>
                         </thead>
@@ -28,6 +30,8 @@
                             <tr>
                                 <th scope="row">{{ $key+1 }}</th>
                                 <td>{{ $file->name }}</td>
+                                <td>{{ $file->course }}</td>
+
                                 <td><a href="/files/{{$file->name}}" style="text-decoration: none; font-size: 16px; color: black">{{ $file->name }}</a></td>
 
                             </tr>
