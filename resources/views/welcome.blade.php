@@ -119,10 +119,10 @@
         </div>
     </nav>
 
-    <main class="py-4" style="margin-top: 10%;">
+    <main class="py-4" style="margin-top: 15%;">
         <div class="container text-center">
-            <h1 class="display-4">Welcome to our Student Subject Selection System!</h1>
-            <p class="lead">Our system is designed to help you easily choose your subjects for the upcoming semester. We understand that selecting the right subjects is crucial for your academic journey. Begin your journey to academic success with our Student Subject Selection System today!
+            <h1 class="display-4">Welcome to our academic System!</h1>
+            <p class="lead">Our system is designed to Unlock academic success with our Student Subject Selection System. simplifying subject choices to ensure a seamless journey towards your upcoming semester. Begin your journey to academic success with our Student Subject Selection System today!
             </p>
         </div>
 

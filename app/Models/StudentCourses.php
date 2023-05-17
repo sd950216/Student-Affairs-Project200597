@@ -21,9 +21,9 @@ class StudentCourses extends Model
     {
         return $this->belongsTo(Departments::class);
     }
-    public static function GetAbsence($course)
+    public static function GetRegisteredStudents($course)
     {
-        $students = User::select('users.*','student_courses.Department','student_courses.status')
+        $students = User::select('users.*','student_courses.Department')
             ->join('student_courses', 'users.id', '=', 'student_courses.students_id')
             ->where('student_courses.name', $course)
             ->get();

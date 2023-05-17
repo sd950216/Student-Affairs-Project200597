@@ -3,11 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Departments;
-use App\Models\Doctors;
-use App\Models\Courses;
-use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 
 class DepartmentController extends Controller
 {
@@ -28,7 +24,7 @@ class DepartmentController extends Controller
 
     $request->validate([
         'name' => 'required|unique:departments|max:10',
-        'code' => 'sometimes|required|numeric|unique:departments'
+        'code' => 'required|numeric|unique:departments'
         // other validation rules for your form fields
     ]);
 
@@ -43,7 +39,7 @@ class DepartmentController extends Controller
             $Department->save();
 
             // Redirect the user with a success message
-            return redirect('/')->with('success', 'Department has been created successfully!');
+            return redirect('/home')->with('success', 'Department has been created successfully!');
         } catch (\Illuminate\Database\QueryException $e) {
             // Catch the exception and display a user-friendly error message
             $errorCode = $e->errorInfo[1];

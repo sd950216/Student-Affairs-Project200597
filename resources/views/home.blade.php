@@ -2,7 +2,12 @@
 
 @section('content')
     <div class="container">
-    <div class="row pt-3">
+        @if(session('success'))
+            <div class="p-3" style="color: green">{{ session('success') }}</div>
+
+        @endif
+
+        <div class="row pt-3">
         <div class="col ps-4">
             <!-- <h1 class="display-6 mb-3"><i class="ms-auto bi bi-grid"></i> Dashboard</h1> -->
             <div class="row dashboard">

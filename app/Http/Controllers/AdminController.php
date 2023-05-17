@@ -115,7 +115,7 @@ class AdminController extends Controller
     public function Absence($course)
     {
 
-        $students = StudentCourses::GetAbsence($course);
+        $students = StudentCourses::GetRegisteredStudents($course);
 
         $pdf = new Dompdf();
 
