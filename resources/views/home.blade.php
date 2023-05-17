@@ -83,7 +83,17 @@
                         <div class="card-body p-0 text-dark">
                             <div>
                                 <div class="accordion accordion-flush" id="noticeAccordion">
-                                    <div class="p-3">No notices</div>
+                                    @if($notes)
+                                        @foreach($notes as $note)
+                                            <div class="p-3" style="color: red">{{$note}}</div>
+
+
+                                        @endforeach
+
+                                    @else
+                                    <div class="p-3" style="color: green">No notices, everything looks great</div>
+                                    @endif
+
                                 </div>
                             </div>
                         </div>

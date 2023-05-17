@@ -7,6 +7,9 @@ use App\Models\Students;
 use App\Models\StudentCourses;
 use App\Models\Courses;
 use App\Models\User;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Dompdf\Dompdf;
 use Dompdf\Options;
@@ -34,36 +37,9 @@ class AdminController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return Application|Factory|\Illuminate\Contracts\View\View
      */
-    public function GenerateAbsence($subject)
-    {
-
-        $stud_name = StudentCourses::where('name', $subject)->get();
-        $ids = array();
-        $names = array();
-
-        foreach ($stud_name as $student) {
-            $id = $student->id;
-            $ids[] = $id;
-        }
-
-        $students = Students::whereIn('id', $ids)->get(['username']);
-
-        foreach ($students as $student) {
-            $name = $student->username;
-            $names[] = $name;
-        }
-
-// $names array now contains the names of all students
-
-
-        return response()->json($names);
-    }
-
-
 
     public function listDoctors()
     {
@@ -113,30 +89,9 @@ class AdminController extends Controller
      * Store a newly created resource in storage.
      *
      * @param Request $request
-     * @return \Illuminate\Http\JsonResponse
+     * @return RedirectResponse
      */
-    public function Absence($course)
-    {
 
-        $students = StudentCourses::GetAbsence($course);
-
-        $pdf = new Dompdf();
-
-        // Load the blade view with the students data and convert it to HTML
-        $html = view('pages.GenerateAbsence', compact('students'))->render();
-
-
-
-        // Load the HTML into Dompdf
-        $pdf->loadHtml($html);
-
-        // Render the PDF
-        $pdf->render();
-        // Output the generated PDF to the browser
-//        return $pdf->stream($course);
-        return response()->json($students);
-
-    }
     public function updateStatus(Request $request)
     {
         $checkedItems = $request->input('items', []);

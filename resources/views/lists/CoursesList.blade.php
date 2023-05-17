@@ -21,7 +21,7 @@
                             <th scope="col">ID</th>
                             <th scope="col">Name</th>
                             <th scope="col">Department</th>
-                            @if (Auth::check() && Auth::user()->role != 'student')
+                            @if (Auth::check() && Auth::user()->role == 'doctor')
                                 <th scope="col">Code</th>
                                 <th scope="col">Absence File</th>
                             @endif
@@ -35,14 +35,10 @@
                                 <th scope="row">{{ $course->id }}</th>
                                 <td>{{ $course->name }}</td>
                                 <td style="display: table-cell; text-align: center;">{{ $course->department }}</td>
-
-                            @if (Auth::check() && Auth::user()->role != 'student')
+                            @if (Auth::check() && Auth::user()->role == 'doctor')
                                     <td style="display: table-cell; text-align: center;">{{ $course->code }}</td>
                                     <td><a href="/GenerateAbsence/{{$course->name}}" style="text-decoration: none; font-size: 16px; color: black">{{ $course->name }}.pdf</a></td>
-                                @endif
-
-
-
+                            @endif
                             </tr>
                         @endforeach
 

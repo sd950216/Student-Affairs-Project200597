@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Doctors;
+use App\Models\StudentCourses;
+use Dompdf\Dompdf;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class DoctorController extends Controller
@@ -19,14 +22,28 @@ class DoctorController extends Controller
         return view('pages.CreateDoctorAccount')->with('title', $title);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+
+    public function Absence($course)
     {
-        //
+
+        $students = StudentCourses::GetAbsence($course);
+
+        $pdf = new Dompdf();
+
+        // Load the blade view with the students data and convert it to HTML
+        $html = view('pages.GenerateAbsence', compact('students'))->render();
+
+
+
+        // Load the HTML into Dompdf
+        $pdf->loadHtml($html);
+
+        // Render the PDF
+        $pdf->render();
+        // Output the generated PDF to the browser
+        $pdf->stream($course);
+        exit(); // Ensure the script stops executing after streaming the PDF
+
     }
 
     /**
@@ -55,48 +72,5 @@ class DoctorController extends Controller
         return redirect('/')->with('success', 'Doctor has been created successfully!');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
 }

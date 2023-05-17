@@ -1,7 +1,6 @@
-//dropzone css
 @extends("layouts.app")
 @section('content')
-//form
+    <div class="container">
 <form action="{{ route('files.store') }}" method="POST" enctype="multipart/form-data" class="dropzone" id="my-dropzone">
     @csrf
     <div class="fallback">
@@ -9,15 +8,15 @@
     </div>
 </form>
 
+</div>
 
-//script
 <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/min/dropzone.min.js"></script>
 <script>
     Dropzone.options.myDropzone = {
         paramName: "file", // The name that will be used to transfer the file
         maxFilesize: 6, // MB
         acceptedFiles: ".pdf,.doc,.docx",
-        dictDefaultMessage: `<img src="https://w7.pngwing.com/pngs/730/348/png-transparent-computer-icons-upload-icon-upload-miscellaneous-angle-rectangle-thumbnail.png"><br><br> Click or drop files here to upload`,
+        dictDefaultMessage: `<img src="https://cdn.pixabay.com/photo/2016/01/03/00/43/upload-1118929_1280.png" width="200px" alt="upload-img-pic"><br><br> Click or drop files here to upload`,
     };
 </script>
 

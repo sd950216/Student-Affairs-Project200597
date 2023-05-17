@@ -39,6 +39,7 @@
 
                         </tbody>
                     </table>
+                    <button type="button" class="btn btn-primary" onclick="window.location.href='/upload';"> Add files</button>
                 </div>
             </div>
         </div>
