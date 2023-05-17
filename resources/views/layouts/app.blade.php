@@ -27,12 +27,22 @@
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-dark bg-black shadow-sm">
             <div class="container">
+                @if(Auth::guest())
+                    <a class="navbar-brand" href="{{ url('/') }}">
 
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    <img src="https://ui-avatars.com/api/?name=t" width="30" height="30" class="d-inline-block align-top" alt="">
+                        <img src="https://ui-avatars.com/api/?name=t" width="30" height="30" class="d-inline-block align-top" alt="">
 
-                    {{ config('app.name', 'TRAP') }}
-                </a>
+                        {{ config('app.name', 'TRAP') }}
+                    </a>
+                @else
+                    <a class="navbar-brand" href="{{ url('/home') }}">
+
+                        <img src="https://ui-avatars.com/api/?name=t" width="30" height="30" class="d-inline-block align-top" alt="">
+
+                        {{ config('app.name', 'TRAP') }}
+                    </a>
+                @endif
+
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -56,7 +66,7 @@
                             @if (Auth::user()->role == 'admin')
 
                             <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
                                     Add
                                 </a>
 
@@ -86,7 +96,7 @@
                                 @endif
 
                                 <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
                                     {{ Auth::user()->name }}
                                 </a>
 

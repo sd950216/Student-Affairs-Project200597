@@ -22,11 +22,8 @@ class HomeController extends Controller
         $this->middleware('auth');
     }
 
-    /**
-     * Show the application dashboard.
-     *
-     * @return Application|Renderable
-     */
+
+
     public function index()
     {
 

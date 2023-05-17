@@ -9,7 +9,7 @@
             </h1>
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="http://127.0.0.1:8000/">Home</a></li>
+                    <li class="breadcrumb-item"><a href="http://127.0.0.1:8000/home">Home</a></li>
                     <li class="breadcrumb-item active" aria-current="page">Course List</li>
                 </ol>
             </nav>
