@@ -84,11 +84,11 @@ class User extends Authenticatable
     }
     public static function GetStudentDoctors()
     {
-        $student_courses = StudentCourses::getSubjects(Auth::user()->id)->pluck('name')
+        $student_courses = StudentCourses::getCourses(Auth::user()->id)->pluck('name')
             ->toArray();;
         return User::where('role', 'doctor')->whereIn('specialization', $student_courses)->get();
     }
-    public static function GetAdmin()
+    public static function GetAdminsCount()
     {
         return User::where('role', 'admin')->get()->count();
     }

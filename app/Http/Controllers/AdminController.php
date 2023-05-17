@@ -3,12 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Departments;
-use App\Models\Students;
 use App\Models\StudentCourses;
 use App\Models\Courses;
 use App\Models\User;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Dompdf\Dompdf;
@@ -22,7 +22,7 @@ class AdminController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     public function index($deparment)
 
@@ -70,7 +70,7 @@ class AdminController extends Controller
     public function listCourses()
     {
         if (Auth::user()->role == 'admin') {
-            $courses = Courses::getSubjects();
+            $courses = Courses::getCourses();
 
         }
         else if (Auth::user()->role == 'doctor') {
@@ -78,7 +78,7 @@ class AdminController extends Controller
 
         }
         else
-            $courses = StudentCourses::getSubjects(Auth::user()->id);
+            $courses = StudentCourses::getCourses(Auth::user()->id);
 
 
         return view('lists.CoursesList')->with(['courses'=>$courses]);
@@ -111,5 +111,27 @@ class AdminController extends Controller
         }
         return redirect()->back();
 //        return response()->json($checkedItems);
+    }
+    public function Absence($course)
+    {
+
+        $students = StudentCourses::GetAbsence($course);
+
+        $pdf = new Dompdf();
+
+        // Load the blade view with the students data and convert it to HTML
+        $html = view('pages.GenerateAbsence', compact('students'))->render();
+
+
+
+        // Load the HTML into Dompdf
+        $pdf->loadHtml($html);
+
+        // Render the PDF
+        $pdf->render();
+        // Output the generated PDF to the browser
+        $pdf->stream($course);
+        exit(); // Ensure the script stops executing after streaming the PDF
+
     }
 }

@@ -30,14 +30,14 @@ class FilesController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return Application|Factory|View|JsonResponse
+     * @return Application|Factory|View
      */
     public function show()
     {
 
         if (Auth::user()->role == 'student')
         {
-            $courses = StudentCourses::getSubjects(Auth::user()->id) ->pluck('name')
+            $courses = StudentCourses::getCourses(Auth::user()->id) ->pluck('name')
                 ->toArray();;
             $files = Files::whereIn('course',$courses)->get();
         }
@@ -115,39 +115,7 @@ class FilesController extends Controller
         }
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param Request $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
 
 
 }

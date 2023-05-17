@@ -26,7 +26,7 @@ class DepartmentController extends Controller
     {
 
 
-    $validatedData = $request->validate([
+    $request->validate([
         'name' => 'required|unique:departments|max:10',
         'code' => 'sometimes|required|numeric|unique:departments'
         // other validation rules for your form fields

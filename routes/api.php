@@ -1,12 +1,9 @@
 <?php
 
 use App\Models\User;
-use Dotenv\Dotenv;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Validator;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,19 +16,13 @@ use Illuminate\Support\Facades\Validator;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
-
-$dotenv = Dotenv::createImmutable('C:\Users\ss950\Downloads\Laravel\laravel_project');
-$dotenv->load();
-Route::post('/create-admin', function (Illuminate\Http\Request $request) {
+Route::post('/create-admin', function (Request $request) {
     // Check if API key is valid
     $apiKey = $_ENV['API_KEY'];
     if ($request->header('X-API-KEY') != $apiKey) {
-        return response()->json(['error' => 'Unauthorized'], 401);
+        return response()->json(['error' => 'Unauthorized, Invalid API-KEY'], 401);
     }
-    if (User::GetAdmin() == 1) {
+    if (User::GetAdminsCount() == 1) {
         return response()->json(['error' => 'There is already an admin'], 401);
 
     }
@@ -44,6 +35,6 @@ Route::post('/create-admin', function (Illuminate\Http\Request $request) {
     $admin->role = 'admin';
     $admin->save();
 
-    return User::GetAdmin();
+    return User::GetAdminsCount();
 });
 

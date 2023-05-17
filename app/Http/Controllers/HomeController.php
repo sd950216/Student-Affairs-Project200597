@@ -30,7 +30,7 @@ class HomeController extends Controller
         if (Auth::user()->role == 'admin') {
             $students = User::getStudents()->count();
             $doctors = User::getDoctors()->count();
-            $courses = Courses::getSubjects()->count();
+            $courses = Courses::getCourses()->count();
 
            $notes = $this->GetNotes();
 
@@ -42,7 +42,7 @@ class HomeController extends Controller
         } else {
             $students = 1;
             $doctors = User::getStudentDoctors()->count();
-            $courses = StudentCourses::getSubjects(Auth::user()->id)->count();
+            $courses = StudentCourses::getCourses(Auth::user()->id)->count();
             $notes = null;
 
         }
@@ -55,7 +55,7 @@ class HomeController extends Controller
 
         $students = User::getStudents()->count();
         $doctors = User::getDoctors()->count();
-        $courses = Courses::getSubjects()->count();
+        $courses = Courses::getCourses()->count();
         $departments = Departments::all()->count();
 
         if ($students == 0) {

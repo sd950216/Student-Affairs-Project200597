@@ -23,28 +23,7 @@ class DoctorController extends Controller
     }
 
 
-    public function Absence($course)
-    {
 
-        $students = StudentCourses::GetAbsence($course);
-
-        $pdf = new Dompdf();
-
-        // Load the blade view with the students data and convert it to HTML
-        $html = view('pages.GenerateAbsence', compact('students'))->render();
-
-
-
-        // Load the HTML into Dompdf
-        $pdf->loadHtml($html);
-
-        // Render the PDF
-        $pdf->render();
-        // Output the generated PDF to the browser
-        $pdf->stream($course);
-        exit(); // Ensure the script stops executing after streaming the PDF
-
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -71,6 +50,27 @@ class DoctorController extends Controller
 
         return redirect('/')->with('success', 'Doctor has been created successfully!');
     }
+    public function Results($course)
+    {
 
+        $students = StudentCourses::GetResults($course);
+
+        $pdf = new Dompdf();
+
+        // Load the blade view with the students data and convert it to HTML
+        $html = view('pages.GenerateResults', compact('students'))->render();
+
+
+
+        // Load the HTML into Dompdf
+        $pdf->loadHtml($html);
+
+        // Render the PDF
+        $pdf->render();
+        // Output the generated PDF to the browser
+        $pdf->stream($course);
+        exit(); // Ensure the script stops executing after streaming the PDF
+
+    }
 
 }

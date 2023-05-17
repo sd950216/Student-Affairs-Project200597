@@ -20,9 +20,9 @@
     <tr>
         <th>ID</th>
         <th>Name</th>
-        <th>Email</th>
         <th>Department</th>
         <th>Academic Number</th>
+        <th>status</th>
 
     </tr>
     </thead>
@@ -31,9 +31,9 @@
         <tr>
             <td>{{ $key+1 }}</td>
             <td>{{ $student->name }}</td>
-            <td>{{ $student->email }}</td>
             <td>{{ $student->Department }}</td>
             <td>{{ $student->AcademicNumber }}</td>
+            <td>{{ $student->status }}</td>
 
         </tr>
     @endforeach

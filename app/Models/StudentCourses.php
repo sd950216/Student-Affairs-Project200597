@@ -16,27 +16,33 @@ class StudentCourses extends Model
         'status',
     ];
 
-    public function registered_students(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
-    {
-        return $this->belongsToMany(Students::class);
-    }
 
     public function department(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Departments::class);
     }
-    public static function GetAbsence($subject)
+    public static function GetAbsence($course)
     {
         $students = User::select('users.*','student_courses.Department','student_courses.status')
             ->join('student_courses', 'users.id', '=', 'student_courses.students_id')
-            ->where('student_courses.name', $subject)
+            ->where('student_courses.name', $course)
+            ->get();
+        return $students;
+
+
+    }
+    public static function GetResults($course)
+    {
+        $students = User::select('users.*','student_courses.Department','student_courses.status')
+            ->join('student_courses', 'users.id', '=', 'student_courses.students_id')
+            ->where('student_courses.name', $course)
             ->get();
         return $students;
 
 
     }
 
-    public static function getSubjects($student_id)
+    public static function getCourses($student_id)
     {
         return StudentCourses::where(['students_id' => $student_id])->get();
     }
