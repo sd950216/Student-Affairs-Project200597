@@ -1,7 +1,5 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -36,7 +34,7 @@ Route::middleware(['auth', 'checkRole:admin'])->group(function () {
 Route::middleware(['auth', 'checkRole:doctor'])->group(function () {
 
     Route::get('/GenerateResults/{course}', 'App\Http\Controllers\DoctorController@Results');
-    Route::get('/upload', 'App\Http\Controllers\FilesController@index')->name('files.index');;
+    Route::get('/upload', 'App\Http\Controllers\FilesController@index')->name('files.index');
     Route::post('/store-files', 'App\Http\Controllers\FilesController@store')->name('files.store');
     Route::post('/updateStatus', 'App\Http\Controllers\AdminController@updateStatus')->name('admin.updateStatus');
 });
