@@ -23,11 +23,10 @@ class StudentCourses extends Model
     }
     public static function GetRegisteredStudents($course)
     {
-        $students = User::select('users.*','student_courses.Department')
+        return User::select('users.*','student_courses.Department')
             ->join('student_courses', 'users.id', '=', 'student_courses.students_id')
             ->where('student_courses.name', $course)
             ->get();
-        return $students;
 
 
     }

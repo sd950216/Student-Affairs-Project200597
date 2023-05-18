@@ -49,40 +49,31 @@ class FilesController extends Controller
         return view('lists.FilesList')->with(['files'=>$files]);
     }
 
+
     /**
-     * Store a newly created resource in storage.
+     * Store a file from the request and save its details in the database.
      *
-     * @param Request $request
+     * @param  Request $request
      * @return JsonResponse
      */
-    //add image to the storage disk.
-    public function uploadImageViaAjax(Request $request)
-    {
-        $name = [];
-        $original_name = [];
-        foreach ($request->file('file') as $key => $value) {
-            $image = uniqid() . time() . '.' . $value->getClientOriginalExtension();
-            $destinationPath = public_path().'/images/';
-            $value->move($destinationPath, $image);
-            $name[] = $image;
-            $original_name[] = $value->getClientOriginalName();
-        }
-
-        return response()->json([
-            'name'          => $name,
-            'original_name' => $original_name
-        ]);
-    }
-
-//add form data to database
     public function store(Request $request)
     {
+        // Get the file from the request
         $file = $request->file('file');
+
+        // Get the original file name
         $fileName = $file->getClientOriginalName();
 
+        // Store the file in the "public/Files" directory with the original file name
         $filePath = $file->storeAs('public/Files', $fileName);
+
+        // Get the destination path for moving the file
         $destinationPath = public_path().'/Files/';
-        $file->move($destinationPath,$fileName);
+
+        // Move the file to the destination path with the original file name
+        $file->move($destinationPath, $fileName);
+
+        // Create a new record in the "Files" table with the file details
         Files::create([
             'name' => $fileName,
             'course' => Auth::user()->specialization,
@@ -90,6 +81,7 @@ class FilesController extends Controller
             'file_path' => $filePath,
         ]);
 
+        // Return a JSON response indicating success
         return response()->json(['success' => true]);
     }
 
@@ -102,8 +94,7 @@ class FilesController extends Controller
      */
     public function download($FileName)
     {
-
-        $file_path = public_path('Files/'.$FileName);
+        $file_path = public_path('Files/' . $FileName);
         if (file_exists($file_path)) {
             $headers = [
                 'Content-Type' => 'application/pdf',
@@ -111,7 +102,7 @@ class FilesController extends Controller
             ];
             return response()->download($file_path, $FileName, $headers);
         } else {
-            return response()->json(['error' => 'File not found'], 404);
+            abort(404, 'File Not Found.');
         }
     }
 

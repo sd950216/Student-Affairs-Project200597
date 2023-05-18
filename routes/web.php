@@ -25,12 +25,8 @@ Route::middleware(['auth', 'checkRole:admin'])->group(function () {
 
     Route::get('/AddDepartment', 'App\Http\Controllers\DepartmentController@index');
     Route::post('/storeDepartment', 'App\Http\Controllers\DepartmentController@store')->name('storeDepartment');
-    Route::get('/AddSubject', 'App\Http\Controllers\SubjectController@index');
-    Route::post('/storeSubject', 'App\Http\Controllers\SubjectController@store')->name('storeSubject');
-    Route::get('/CreateStudentAccount', 'App\Http\Controllers\StudentController@index');
-    Route::post('/storeStudentAccount', 'App\Http\Controllers\StudentController@store')->name('storeStudentAccount');
-    Route::get('/CreateDoctorAccount', 'App\Http\Controllers\DoctorController@index')->name('controllers.doctor.index');;
-    Route::post('/storeDoctorAccount', 'App\Http\Controllers\DoctorController@store')->name('storeDoctorAccount');
+    Route::get('/AddSubject', 'App\Http\Controllers\CoursesController@index');
+    Route::post('/storeSubject', 'App\Http\Controllers\CoursesController@store')->name('storeSubject');
     Route::get('/GenerateAbsence/{course}', 'App\Http\Controllers\AdminController@Absence');
 
 });
@@ -39,10 +35,10 @@ Route::middleware(['auth', 'checkRole:admin'])->group(function () {
 // Doctor routes here
 Route::middleware(['auth', 'checkRole:doctor'])->group(function () {
 
-    Route::get('/GenerateResults/{course}', 'App\Http\Controllers\DoctorController@Results')->middleware('checkRole:doctor');
-    Route::get('/upload', 'App\Http\Controllers\FilesController@index')->name('files.index')->middleware('checkRole:doctor');;
-    Route::post('/store-files', 'App\Http\Controllers\FilesController@store')->name('files.store')->middleware('checkRole:doctor');;
-    Route::post('/updateStatus', 'App\Http\Controllers\AdminController@updateStatus')->name('admin.updateStatus')->middleware('checkRole:doctor');
+    Route::get('/GenerateResults/{course}', 'App\Http\Controllers\DoctorController@Results');
+    Route::get('/upload', 'App\Http\Controllers\FilesController@index')->name('files.index');;
+    Route::post('/store-files', 'App\Http\Controllers\FilesController@store')->name('files.store');
+    Route::post('/updateStatus', 'App\Http\Controllers\AdminController@updateStatus')->name('admin.updateStatus');
 });
 
 

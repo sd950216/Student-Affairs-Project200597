@@ -65,12 +65,10 @@ class User extends Authenticatable
 //        $students = User::join('student_courses', 'users.id', '=', 'student_courses.students_id')
 //            ->where('student_courses.name', Auth::user()->specialization)
 //            ->get();
-        $students = User::select('users.*','student_courses.Department','student_courses.status')
+        return User::select('users.*','student_courses.Department','student_courses.status')
             ->join('student_courses', 'users.id', '=', 'student_courses.students_id')
             ->where('student_courses.name', Auth::user()->specialization)
             ->get();
-
-        return $students;
 
     }
 

@@ -4,18 +4,20 @@ namespace App\Http\Controllers;
 
 use App\Models\Departments;
 use App\Models\Courses;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 
-class SubjectController extends Controller
+class CoursesController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
+     * @return Application|Factory|View
      */
     public function index()
     {
-        //.
         $title = "AddSubject";
         $departments = Departments::all();
         if ($departments->count() == 0)
@@ -35,7 +37,7 @@ class SubjectController extends Controller
      * Store a newly created resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Http\Response|\Illuminate\Routing\Redirector
+     * @return Application|\Illuminate\Http\RedirectResponse|\Illuminate\Http\Response|\Illuminate\Routing\Redirector
      */
     public function store(Request $request)
     {
@@ -63,7 +65,7 @@ class SubjectController extends Controller
             $Course->save();
 
             // Redirect the user with a success message
-            return redirect('/')->with('success', 'Course has been created successfully!');
+            return redirect('/home')->with('success', 'Course has been created successfully!');
         } catch (\Illuminate\Database\QueryException $e) {
             // Catch the exception and display a user-friendly error message
             $errorCode = $e->errorInfo[1];

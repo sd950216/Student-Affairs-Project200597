@@ -39,7 +39,10 @@
 
                         </tbody>
                     </table>
-                    <button type="button" class="btn btn-primary" onclick="window.location.href='/upload';"> Add files</button>
+                    @if(Auth::user()->role == 'doctor')
+                        <button type="button" class="btn btn-primary" onclick="window.location.href='/upload';"> Add files</button>
+
+                    @endif
                 </div>
             </div>
         </div>

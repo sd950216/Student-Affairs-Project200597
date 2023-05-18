@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Doctors;
 use App\Models\StudentCourses;
 use Dompdf\Dompdf;
 use Illuminate\Http\JsonResponse;
@@ -10,11 +9,7 @@ use Illuminate\Http\Request;
 
 class DoctorController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
-     */
+
     public function index()
     {
         //
@@ -22,34 +17,6 @@ class DoctorController extends Controller
         return view('pages.CreateDoctorAccount')->with('title', $title);
     }
 
-
-
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Http\Response|\Illuminate\Routing\Redirector
-     */
-    public function store(Request $request)
-    {
-        //
-        $request->validate([
-            'name' => 'required',
-            'password' => 'required',
-        ]);
-        $hashed_password = password_hash($request->get('password'), PASSWORD_DEFAULT);
-
-        $doctor = new Doctors([
-            'name' => $request->get('name'),
-            'password' => $hashed_password,
-
-        ]);
-
-        $doctor->save();
-
-        return redirect('/')->with('success', 'Doctor has been created successfully!');
-    }
     public function Results($course)
     {
 

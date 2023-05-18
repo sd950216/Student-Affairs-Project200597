@@ -8,7 +8,7 @@
                 <div class="card-header">Create Account </div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('register') }}">
+                    <form method="POST" action="{{ route('storeAccount') }}">
                         @csrf
 
                         <div class="row mb-3">

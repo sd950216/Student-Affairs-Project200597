@@ -41,19 +41,7 @@ class AdminController extends Controller
      * @return Application|Factory|\Illuminate\Contracts\View\View
      */
 
-    public function listDoctors()
-    {
-        if (Auth::user()->role == 'admin')
-            $doctors = User::getDoctors();
-        else if (Auth::user()->role == 'doctor')
-            $doctors = User::GetOneDoctor();
-        else
-            $doctors = User::GetStudentDoctors();
 
-
-        return view('lists.DoctorList')->with(['doctors'=>$doctors]);
-
-    }
     public function listStudents()
     {
         if (Auth::user()->role == 'doctor')
@@ -67,6 +55,19 @@ class AdminController extends Controller
         return view('lists.studentList')->with(['students'=>$students]);
     }
 
+    public function listDoctors()
+    {
+        if (Auth::user()->role == 'admin')
+            $doctors = User::getDoctors();
+        else if (Auth::user()->role == 'doctor')
+            $doctors = User::GetOneDoctor();
+        else
+            $doctors = User::GetStudentDoctors();
+
+
+        return view('lists.DoctorList')->with(['doctors'=>$doctors]);
+
+    }
     public function listCourses()
     {
         if (Auth::user()->role == 'admin') {
@@ -121,8 +122,6 @@ class AdminController extends Controller
 
         // Load the blade view with the students data and convert it to HTML
         $html = view('pages.GenerateAbsence', compact('students'))->render();
-
-
 
         // Load the HTML into Dompdf
         $pdf->loadHtml($html);
